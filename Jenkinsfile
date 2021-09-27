@@ -13,9 +13,9 @@ pipeline {
             steps {
                 echo 'clear'
                 //sh 'docker stop $(docker ps -aq)'
-                sh 'docker stop board'
+                sh 'docker stop demo'
                 //sh 'docker rm $(docker ps -aq)'
-                sh 'docker rm board'
+                sh 'docker rm demo'
                 deleteDir()
             }
         }
@@ -27,7 +27,7 @@ pipeline {
                 sh "ls -al"
             }
         }
-        stage('backend dockerizing') {
+        stage('dockerizing') {
             steps {
                 //sh "pwd"
                 //dir("./backend"){
@@ -37,7 +37,7 @@ pipeline {
                     //sh "gradle wrapper --stacktrace"
                     //sh "gradle bootJar"
 
-                    sh "docker build -t upi907/testdeploy ."
+                    sh "docker build -t upi907/demodeploy ."
                 //}
             }
         }
@@ -45,7 +45,7 @@ pipeline {
             steps {
                 sh '''
                 
-                  docker run -d -p 8080:8080 --name board upi907/testdeploy
+                  docker run -d -p 8080:8080 --name demo upi907/demodeploy
                 '''
             }
         }
